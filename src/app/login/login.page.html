@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Login</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="login()" [formGroup]="authGroup">
+        <ion-item>
+          <ion-label position="stacked">CPF</ion-label>
+          <ion-input required type="text" name="cpf" placeholder="CPF" (keyup)="removerErro()" formControlName="username"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="erro.cpf">CPF incorreto</ion-text>
+        <ion-item>
+          <ion-label position="stacked">Senha</ion-label>
+          <ion-input required type="password" placeholder="Senha" name="password" formControlName="password"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="erro.senha">Senha incorreta</ion-text>
+        <div class="ion-padding">
+          <ion-button expand="block" type="submit" color="success" class="ion-no-margin">Entrar</ion-button>
+        </div>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

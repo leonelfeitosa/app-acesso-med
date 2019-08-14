@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button
+      [text]="Voltar"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cadastrar Cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <form padding (ngSubmit)="cadastrarCliente()" [formGroup]="clienteGroup">
+    <!--Nome-->
+    <ion-item>
+      <ion-label position="stacked">Nome:</ion-label>
+      <ion-input name="nome" required type="text" formControlName="nome"></ion-input>
+    </ion-item>
+    <!--RG-->
+    <ion-item>
+      <ion-label position="stacked">RG:</ion-label>
+      <ion-input name="rg" required type="text" formControlName="rg"></ion-input>
+    </ion-item>
+    <!--CPF-->
+    <ion-item>
+      <ion-label position="stacked">CPF:</ion-label>
+      <ion-input name="cpf" required type="text" formControlName="cpf"></ion-input>
+    </ion-item>
+    <!--Endereco-->
+    <ion-item>
+      <ion-label position="stacked">Endereço:</ion-label>
+      <ion-input name="endereco" required type="text" formControlName="endereco"></ion-input>
+    </ion-item>
+    <!--Data de nascimento-->
+    <ion-item>
+      <ion-label position="stacked">Data de Nascimento:</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" placeholder="Data de Nascimento" formControlName="data_nascimento"></ion-datetime>
+    </ion-item>
+    <!--Cadastrar responsável-->
+    <ion-item class="ion-align-self-start">
+      <ion-button color="light" (click)="cadastrarResp()">Cadastrar Responsável</ion-button>
+    </ion-item>
+    <!--Botão submit-->
+    <div>
+      <ion-button type="submit" expand="block" color="success" class="ion-no-margin">Cadastrar Cliente</ion-button>
+    </div>
+  </form>
+
+</ion-content>
