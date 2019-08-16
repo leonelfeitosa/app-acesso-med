@@ -34,10 +34,10 @@
     <!--Data de nascimento-->
     <ion-item>
       <ion-label position="stacked">Data de Nascimento:</ion-label>
-      <ion-datetime displayFormat="DD/MM/YYYY" placeholder="Data de Nascimento" formControlName="data_nascimento"></ion-datetime>
+      <ion-datetime displayFormat="DD/MM/YYYY" placeholder="Data de Nascimento" formControlName="data_nascimento" (ionChange)="calcularIdade()"></ion-datetime>
     </ion-item>
     <!--Cadastrar responsável-->
-    <ion-item class="ion-align-self-start">
+    <ion-item class="ion-align-self-start" *ngIf="precisaResponsavel">
       <ion-button color="light" (click)="cadastrarResp()">Cadastrar Responsável</ion-button>
     </ion-item>
     <!--Botão submit-->
