@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { AngularFireAuth } from '@angular/fire/auth';
+
 
 @Component({
   selector: 'app-login',
@@ -23,7 +25,7 @@ export class LoginPage implements OnInit {
   }
   
 
-  constructor(private menuCtrl: MenuController, private authService: AuthService, private alertCtrl: AlertController, private loadginCtrl: LoadingController, private navController: NavController) { }
+  constructor(private menuCtrl: MenuController, private authService: AuthService, private alertCtrl: AlertController, private loadginCtrl: LoadingController, private navController: NavController, private angularAuth: AngularFireAuth) { }
 
   ngOnInit() {
     this.menuCtrl.enable(false)
@@ -56,7 +58,11 @@ export class LoginPage implements OnInit {
             });
             await alert.present();
           }else{
-          this.navController.navigateRoot('/home');
+          await this.angularAuth.auth.signInWithCustomToken(data.token);
+          this.angularAuth.auth.currentUser.getIdToken().then((token) => {
+            localStorage.setItem('token', token);
+            this.navController.navigateRoot('/home');
+          });
         }
         }, async (err) => {
           loading.dismiss();

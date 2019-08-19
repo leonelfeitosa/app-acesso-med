@@ -38,7 +38,7 @@
     </ion-item>
     <!--Cadastrar responsável-->
     <ion-item class="ion-align-self-start" *ngIf="precisaResponsavel">
-      <ion-button color="light" (click)="cadastrarResp()">Cadastrar Responsável</ion-button>
+      <ion-button color="light" (click)="cadastrarResp()">{{ editarResponsavel == true ? 'Editar Responável' : 'Cadastrar Responsável' }}</ion-button>
     </ion-item>
     <!--Botão submit-->
     <div>

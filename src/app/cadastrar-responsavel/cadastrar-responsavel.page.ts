@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LoadingController, NavController } from '@ionic/angular';
+import { LoadingController, NavController, ModalController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-cadastrar-responsavel',
@@ -9,6 +8,9 @@ import { LoadingController, NavController } from '@ionic/angular';
   styleUrls: ['./cadastrar-responsavel.page.scss'],
 })
 export class CadastrarResponsavelPage implements OnInit {
+
+  @Input() responsavel: any;
+  @Input() editar: boolean;
 
   responsavelGroup = new FormGroup({
     nome: new FormControl('', Validators.required),
@@ -18,7 +20,19 @@ export class CadastrarResponsavelPage implements OnInit {
     data_nascimento: new FormControl('', Validators.required)
   });
 
-  constructor(private loadingCtrl: LoadingController, private navCtrl: NavController) { }
+  constructor(private loadingCtrl: LoadingController, private navCtrl: NavController, private modalCtrl: ModalController, private navParams: NavParams) { 
+    this.editar = navParams.get('editar');
+    if(this.editar) {
+      this.responsavel = navParams.get('responsavel');
+      this.responsavelGroup.setValue({
+        nome: this.responsavel.nome,
+        rg: this.responsavel.rg,
+        cpf: this.responsavel.cpf,
+        endereco: this.responsavel.endereco,
+        data_nascimento: this.formatDate(this.responsavel.data_nascimento).toISOString()
+      });
+    }
+  }
 
   ngOnInit() {
   }
@@ -26,6 +40,11 @@ export class CadastrarResponsavelPage implements OnInit {
   dateFromISO8601(isostr) {
     const parts = isostr.match(/\d+/g);
     return new Date(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5]);
+  }
+
+  formatDate(data: string) {
+    const datas = data.split('/');
+    return new Date(parseInt(datas[2]), parseInt(datas[1]), parseInt(datas[0]));
   }
 
   async submit() {
@@ -41,10 +60,15 @@ export class CadastrarResponsavelPage implements OnInit {
         endereco: this.responsavelGroup.value.endereco,
         data_nascimento: data_formatada
       };
-      localStorage.setItem('responsavel', JSON.stringify(responsavel));
       loading.dismiss()
-      this.navCtrl.pop();
+      this.modalCtrl.dismiss({
+        responsavel: responsavel
+      })
     }
+  }
+
+  fechar() {
+    this.modalCtrl.dismiss();
   }
 
 }
