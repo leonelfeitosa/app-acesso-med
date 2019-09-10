@@ -22,7 +22,7 @@
         </ion-item>
         <ion-text color="danger" *ngIf="erro.senha">Senha incorreta</ion-text>
         <div class="ion-padding">
-          <ion-button expand="block" type="submit" color="success" class="ion-no-margin">Entrar</ion-button>
+          <ion-button expand="block" type="submit" color="success" class="ion-no-margin" [disabled]="!authGroup.valid">Entrar</ion-button>
         </div>
       </form>
     </ion-card-content>

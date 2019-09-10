@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Cliente } from '../models/cliente';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientesService {
-  private clientesUrl = 'http://localhost:3000/clientes'
+  private clientesUrl = 'http://localhost:3000/clientes';
 
   constructor(private http: HttpClient) { }
 
@@ -17,11 +18,11 @@ export class ClientesService {
     };
     const requestOptions = {
       headers: new HttpHeaders(headers)
-    }
+    };
     return requestOptions;
   }
 
-  public cadastrarCliente(cliente: any): Observable<any> {
-    return this.http.post<any>(this.clientesUrl, cliente, this.getToken());
+  public cadastrarCliente(cliente: Cliente): Observable<Cliente> {
+    return this.http.post<Cliente>(this.clientesUrl, cliente, this.getToken());
   }
 }

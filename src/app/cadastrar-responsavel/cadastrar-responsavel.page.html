@@ -30,10 +30,41 @@
       <ion-label position="stacked">Endereço:</ion-label>
       <ion-input name="endereco" required type="text" formControlName="endereco"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label postion="stacked">Estado</ion-label>
+      <ion-select
+        interface="alert"
+        placeholder="Selecione um estado"
+        [compareWith]="compararEstados"
+        formControlName="estado"
+      >
+        <ion-select-option 
+        *ngFor="let estado of estados"
+        [value]="estado">{{
+          estado.nome
+        }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label postion="stacked">Cidade</ion-label>
+      <ion-select
+        interface="alert"
+        placeholder="Selecione uma Cidade"
+        [compareWith]="compararCidades"
+        formControlName="cidade"
+      >
+        <ion-select-option 
+        *ngFor="let cidade of cidades"
+        [value]="cidade"
+        >{{
+          cidade.nome
+        }}</ion-select-option>
+      </ion-select>
+    </ion-item>
     <!--Data de nascimento-->
     <ion-item>
       <ion-label position="stacked">Data de Nascimento:</ion-label>
-      <ion-datetime displayFormat="DD/MM/YYYY" placeholder="Data de Nascimento" formControlName="data_nascimento"></ion-datetime>
+      <ion-datetime displayFormat="DD/MM/YYYY" placeholder="Data de Nascimento" formControlName="dataNascimento"></ion-datetime>
     </ion-item>
     <div class="ion-padding">
       <ion-button type="submit" color="success" expand="block" class="ion-no-margin" [disabled]="!responsavelGroup.valid">Cadastrar Responsável</ion-button>
