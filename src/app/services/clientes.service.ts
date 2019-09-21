@@ -7,7 +7,7 @@ import { Cliente } from '../models/cliente';
   providedIn: 'root'
 })
 export class ClientesService {
-  private clientesUrl = 'http://localhost:3000/clientes';
+  private clientesUrl = 'clientes';
 
   constructor(private http: HttpClient) { }
 
@@ -24,5 +24,9 @@ export class ClientesService {
 
   public cadastrarCliente(cliente: Cliente): Observable<Cliente> {
     return this.http.post<Cliente>(this.clientesUrl, cliente, this.getToken());
+  }
+
+  public getClientes(): Observable<Cliente[]> {
+    return this.http.get<Cliente[]>(this.clientesUrl, this.getToken());
   }
 }

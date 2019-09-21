@@ -18,8 +18,12 @@ const routes: Routes = [
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
   },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'cadastrar-cliente', loadChildren: './cadastrar-cliente/cadastrar-cliente.module#CadastrarClientePageModule' },
-  { path: 'cadastrar-responsavel', loadChildren: './cadastrar-responsavel/cadastrar-responsavel.module#CadastrarResponsavelPageModule' }
+  { path: 'cadastrar-cliente', loadChildren: './cadastrar-cliente/cadastrar-cliente.module#CadastrarClientePageModule',
+  canActivate: [AuthRouteGuardService]},
+  { path: 'cadastrar-responsavel', loadChildren: './cadastrar-responsavel/cadastrar-responsavel.module#CadastrarResponsavelPageModule',
+  canActivate: [AuthRouteGuardService] },
+  { path: 'clinicas', loadChildren: './clinicas/clinicas.module#ClinicasPageModule', canActivate: [AuthRouteGuardService] },
+  { path: 'clientes', loadChildren: './clientes/clientes.module#ClientesPageModule' }
 ];
 
 @NgModule({

@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  private authUrl = 'auth/login';
-
+export class ClinicasService {
+  private clinicasUrl = 'clinicas/';
   constructor(private http: HttpClient) { }
+
   private getToken() {
     const token =  localStorage.getItem('token');
     const headers = {
@@ -20,13 +20,7 @@ export class AuthService {
     return requestOptions;
   }
 
-  public login(auth: any): Observable<any> {
-    return this.http.post(this.authUrl, auth, {});
+  public getClinicas(): Observable<any[]> {
+    return this.http.get<any[]>(this.clinicasUrl, this.getToken());
   }
-
-
-  public isAuthenticated(): Observable<any> {
-    return this.http.get('auth/get', this.getToken());
-  }
-
 }

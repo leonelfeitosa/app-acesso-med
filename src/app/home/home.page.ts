@@ -10,7 +10,7 @@ export class HomePage implements OnInit {
 
   constructor(private menuCtrl: MenuController) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.menuCtrl.enable(true);
   }
 }

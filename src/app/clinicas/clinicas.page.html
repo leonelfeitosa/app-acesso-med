@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Clinicas
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="spin">
+    <ion-spinner *ngIf="!loaded"></ion-spinner>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list *ngIf="loaded">
+          <ion-item-divider sticky>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-searchbar
+                    #pesquisaSearchbar
+                    (ionChange)="pesquisa($event)"
+                    placeholder="Pesquisar..."
+                  ></ion-searchbar>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6">
+                  <ion-select interface="popover" value="nome" [formControl]="tipoFiltro">
+                    <ion-select-option value="nome">Nome</ion-select-option>
+                    <ion-select-option value="procedimento"
+                      >Procedimento</ion-select-option
+                    >
+                    <ion-select-option value="especialidade"
+                      >Especialidade</ion-select-option
+                    >
+                  </ion-select>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item-divider>
+          <ion-item *ngFor="let clinica of filtros" button detail="false" (click)="detalhesClinica(clinica)">
+            <ion-label stacked>{{ clinica.name }}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

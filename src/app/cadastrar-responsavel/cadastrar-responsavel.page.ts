@@ -37,14 +37,16 @@ export class CadastrarResponsavelPage implements OnInit {
               private localService: LocalService) {
   }
 
-  ngOnInit() {
-    this.getEstados();
+  async ngOnInit() {
+    const loading = await this.loadingCtrl.create();
+    loading.present();
+    await this.getEstados();
     this.configureForm();
     this.editar = this.navParams.get('editar');
     if (this.editar) {
       this.responsavel = this.navParams.get('responsavel');
       const estado = this.findEstado(this.responsavel.estado);
-      this.estadoSelecionado(estado);
+      await this.estadoSelecionado(estado);
       this.responsavelGroup.setValue({
         nome: this.responsavel.nome,
         rg: this.responsavel.rg,
@@ -55,6 +57,7 @@ export class CadastrarResponsavelPage implements OnInit {
         cidade: this.findCidade(this.responsavel.cidade),
       });
     }
+    loading.dismiss();
   }
 
   dateFromISO8601(isostr: string) {
@@ -98,27 +101,25 @@ export class CadastrarResponsavelPage implements OnInit {
     return o1.nome === o2.nome;
   }
 
-  getEstados() {
-    this.localService.getEstados().subscribe((estados) => {
-      this.estados = estados.map((estado) => {
-        const newEstado: Estado = {
-          id: estado.id,
-          nome: estado.nome,
-          sigla: estado.sigla,
-        };
-        return newEstado;
-      });
+  async getEstados() {
+    const estados = await this.localService.getEstados().toPromise();
+    this.estados = estados.map((estado) => {
+      const newEstado: Estado = {
+        id: estado.id,
+        nome: estado.nome,
+        sigla: estado.sigla,
+      };
+      return newEstado;
     });
   }
 
-  estadoSelecionado(value) {
-    this.localService.getCidades(value.id).subscribe((cidades) => {
-      this.cidades = cidades.map((cidade) => {
-        const newCidade: Cidade = {
-          nome: cidade.nome,
-        };
-        return newCidade;
-      });
+  async estadoSelecionado(value) {
+    const cidades = await this.localService.getCidades(value.id).toPromise();
+    this.cidades = this.cidades = cidades.map((cidade) => {
+      const newCidade: Cidade = {
+        nome: cidade.nome,
+      };
+      return newCidade;
     });
     this.responsavelGroup.get('cidade').enable();
   }

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button [text]="'Voltar'"></ion-back-button>
+      <ion-back-button class="ios"></ion-back-button>
     </ion-buttons>
     <ion-title>Cadastrar Cliente</ion-title>
   </ion-toolbar>
@@ -55,7 +55,11 @@
         interface="alert"
         placeholder="Selecione um estado"
         [compareWith]="compararEstados"
+        [cancelText]="'Cancelar'"
         formControlName="estado"
+        [interfaceOptions]="{
+          header: 'Selecione um Estado'
+        }"
       >
         <ion-select-option 
         *ngFor="let estado of estados"
@@ -70,6 +74,10 @@
         interface="alert"
         placeholder="Selecione uma Cidade"
         [compareWith]="compararCidades"
+        [cancelText]="'Cancelar'"
+        [interfaceOptions]="{
+          header: 'Selecione uma Cidade'
+        }"
         formControlName="cidade"
       >
         <ion-select-option 

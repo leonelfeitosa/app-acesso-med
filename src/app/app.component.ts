@@ -20,6 +20,16 @@ export class AppComponent {
       title: 'Cadastrar Cliente',
       url: '/cadastrar-cliente',
       icon: 'person-add'
+    },
+    {
+      title: 'Clinicas/Medicos',
+      url: '/clinicas',
+      icon: 'clipboard'
+    },
+    {
+      title: 'Clientes',
+      url: '/clientes',
+      icon: 'person'
     }
   ];
 

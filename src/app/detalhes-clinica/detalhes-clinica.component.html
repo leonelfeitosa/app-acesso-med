@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="fechar()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ clinica.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h2 class="titulo">{{clinica.name}}</h2>
+
+  <ion-list>
+    <ion-item *ngFor="let procedimento of clinica.procedimentos">
+      <ion-label >{{ procedimento.nome }}</ion-label>
+      <ion-label slot="end">{{ "R$" + procedimento.valor }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
