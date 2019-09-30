@@ -85,7 +85,7 @@
               </ion-row>
             </ion-grid>
           </ion-item-divider>
-          <ion-item *ngFor="let cliente of filtros" button detail="false">
+          <ion-item *ngFor="let cliente of filtros" button detail="false" (click)="historico(cliente)">
             <ion-label position="stacked">{{ cliente.nome }}</ion-label>
             <ion-label
               position="stacked"

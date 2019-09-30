@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="fechar()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Histórico</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h2 class="titulo">{{cliente.name}}</h2>
+
+  <ion-list>
+    <ion-item *ngFor="let procedimento of historico" button detail="false">
+      <div slot="start">
+      <ion-label position="stacked">{{ procedimento.procedimento.nome }}</ion-label>
+      <ion-label position="stacked">{{ procedimento.dataCompra }} </ion-label>
+    </div>
+      <ion-label slot="end">{{ "R$" + procedimento.procedimento.valor }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

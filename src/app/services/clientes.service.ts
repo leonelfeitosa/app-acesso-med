@@ -26,8 +26,8 @@ export class ClientesService {
     return this.http.post<any>(this.clientesUrl, cliente, this.getToken());
   }
 
-  public getClientes(): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(this.clientesUrl, this.getToken());
+  public getClientes(): Observable<any[]> {
+    return this.http.get<any[]>(this.clientesUrl, this.getToken());
   }
 
   public getCliente(id: string): Observable<any> {

@@ -24,4 +24,8 @@ export class ComprasService {
   public cadastrarCompra(compra: object): Observable<object> {
     return this.http.post<object>(this.comprasUrl, compra, this.getToken());
   }
+
+  public getHistorico(clienteId: object): Observable<object[]> {
+    return this.http.get<object[]>(`${this.comprasUrl}/?cliente=${clienteId}`, this.getToken());
+  }
 }

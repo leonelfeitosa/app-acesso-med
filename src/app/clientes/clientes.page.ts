@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Cliente } from '../models/cliente';
-import { IonSearchbar } from '@ionic/angular';
+import { IonSearchbar, ModalController } from '@ionic/angular';
 import { FormControl } from '@angular/forms';
 import { ClientesService } from '../services/clientes.service';
 import { LocalService } from '../services/local.service';
 import { Estado } from '../models/estado';
 import { Cidade } from '../models/cidade';
+import { HistoricoClienteComponent } from '../historico-cliente/historico-cliente.component';
 
 @Component ({
   selector: 'app-clientes',
@@ -15,9 +15,9 @@ import { Cidade } from '../models/cidade';
 export class ClientesPage implements OnInit {
 
   loaded = false;
-  clientes: Cliente[] = [];
-  filtros: Cliente[] = [];
-  filtrosEstado: Cliente[] = [];
+  clientes: any[] = [];
+  filtros: any[] = [];
+  filtrosEstado: any[] = [];
   tipoFiltro = new FormControl('nome');
   estadoFiltro = new FormControl('selecione');
   cidadeFiltro = new FormControl('');
@@ -30,7 +30,8 @@ export class ClientesPage implements OnInit {
 
   constructor(
               private clientesService: ClientesService,
-              private localService: LocalService) { }
+              private localService: LocalService,
+              private modalCtrl: ModalController) { }
 
   ngOnInit() {
     this.getClientes();
@@ -99,6 +100,17 @@ export class ClientesPage implements OnInit {
       this.getCidades(estado);
       this.filtros = [...this.filtrosEstado];
     }
+  }
+
+  historico(cliente) {
+    this.modalCtrl.create({
+      component: HistoricoClienteComponent,
+      componentProps: {
+        cliente
+      }
+    }).then((modal) => {
+      modal.present();
+    });
   }
 
   filtrarCidade(cidade: Cidade) {
