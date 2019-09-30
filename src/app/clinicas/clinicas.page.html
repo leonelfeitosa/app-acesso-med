@@ -28,7 +28,7 @@
                 </ion-col>
               </ion-row>
               <ion-row>
-                <ion-col size="6">
+                <ion-col>
                   <ion-select interface="popover" value="nome" [formControl]="tipoFiltro">
                     <ion-select-option value="nome">Nome</ion-select-option>
                     <ion-select-option value="procedimento"
@@ -36,6 +36,49 @@
                     >
                     <ion-select-option value="especialidade"
                       >Especialidade</ion-select-option
+                    >
+                  </ion-select>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6">
+                  <ion-select
+                    interface="popover"
+                    value="selecione"
+                    [formControl]="estadoFiltro"
+                    [compareWith]="compararEstados"
+                  >
+                    <ion-select-option disabled="true" value="selecione"
+                      >Estado</ion-select-option
+                    >
+                    <ion-select-option [value]="{ nome: 'todos' }"
+                      >Todos</ion-select-option
+                    >
+                    <ion-select-option
+                      *ngFor="let estado of estados"
+                      [value]="estado"
+                      >{{ estado.nome }}</ion-select-option
+                    >
+                  </ion-select>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-select
+                    interface="popover"
+
+                    [formControl]="cidadeFiltro"
+                    [compareWith]="compararCidades"
+                  >
+                    <ion-select-option value="selecione" disabled="true"
+                      >Cidade</ion-select-option
+                    >
+                    <ion-select-option [value]="{ nome: 'todos' }"
+                      >Todos</ion-select-option
+                    >
+
+                    <ion-select-option
+                      *ngFor="let cidade of cidades"
+                      [value]="cidade"
+                      >{{ cidade.nome }}</ion-select-option
                     >
                   </ion-select>
                 </ion-col>

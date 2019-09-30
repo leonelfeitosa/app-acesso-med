@@ -1,11 +1,9 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>
-      Clientes
-    </ion-title>
+    <ion-title>Clinicas</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -30,13 +28,14 @@
               </ion-row>
               <ion-row>
                 <ion-col>
-                  <ion-select
-                    interface="popover"
-                    value="nome"
-                    [formControl]="tipoFiltro"
-                  >
+                  <ion-select interface="popover" value="nome" [formControl]="tipoFiltro">
                     <ion-select-option value="nome">Nome</ion-select-option>
-                    <ion-select-option value="cpf">CPF</ion-select-option>
+                    <ion-select-option value="procedimento"
+                      >Procedimento</ion-select-option
+                    >
+                    <ion-select-option value="especialidade"
+                      >Especialidade</ion-select-option
+                    >
                   </ion-select>
                 </ion-col>
               </ion-row>
@@ -85,13 +84,8 @@
               </ion-row>
             </ion-grid>
           </ion-item-divider>
-          <ion-item *ngFor="let cliente of filtros" button detail="false">
-            <ion-label position="stacked">{{ cliente.nome }}</ion-label>
-            <ion-label
-              position="stacked"
-              style="padding-left: 1%; color: gray"
-              >{{ cliente.cpf }}</ion-label
-            >
+          <ion-item *ngFor="let clinica of filtros" button detail="false" (click)="selecionarProcedimento(clinica)">
+            <ion-label stacked>{{ clinica.name }}</ion-label>
           </ion-item>
         </ion-list>
       </ion-col>

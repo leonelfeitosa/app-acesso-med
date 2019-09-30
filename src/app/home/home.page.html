@@ -8,9 +8,15 @@
 
 <ion-content>
     <ion-grid style="height: 100%">
-        <ion-row justify-content-center align-items-center style="height: 100%">
+        <ion-row justify-content-center align-items-center style="height: 80%">
           <ion-img [src]="'../../assets/logo.jpeg'"></ion-img>
           
+        </ion-row>
+        <ion-row justify-content-center align-items-center class="wrapper-compra">
+          <ion-button (click)="iniciarCompra()" class="button-compra">
+            <ion-icon slot="start" name="add"></ion-icon>
+            Iniciar Compra
+          </ion-button>
         </ion-row>
       </ion-grid>
 </ion-content>

@@ -10,8 +10,14 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
-    canActivate: [AuthRouteGuardService]
+    canActivate: [AuthRouteGuardService],
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
+      },
+      { path: 'compras', loadChildren: './compras/compras.module#ComprasPageModule' }
+    ]
   },
   {
     path: 'list',
@@ -23,7 +29,8 @@ const routes: Routes = [
   { path: 'cadastrar-responsavel', loadChildren: './cadastrar-responsavel/cadastrar-responsavel.module#CadastrarResponsavelPageModule',
   canActivate: [AuthRouteGuardService] },
   { path: 'clinicas', loadChildren: './clinicas/clinicas.module#ClinicasPageModule', canActivate: [AuthRouteGuardService] },
-  { path: 'clientes', loadChildren: './clientes/clientes.module#ClientesPageModule' }
+  { path: 'clientes', loadChildren: './clientes/clientes.module#ClientesPageModule' },
+  
 ];
 
 @NgModule({

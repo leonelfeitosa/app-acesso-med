@@ -1,37 +1,37 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ClinicasService } from '../services/clinicas.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonSearchbar, ModalController, NavController } from '@ionic/angular';
 import { FormControl } from '@angular/forms';
-import { Clinica } from '../models/clinica';
-import { Estado } from '../models/estado';
-import { Cidade } from '../models/cidade';
-import { LocalService } from '../services/local.service';
-import { IonSearchbar, ModalController } from '@ionic/angular';
-import { DetalhesClinicaComponent } from '../detalhes-clinica/detalhes-clinica.component';
+import { Clinica } from '../../../models/clinica';
+import { Estado } from '../../../models/estado';
+import { Cidade } from '../../../models/cidade';
+import { DetalhesClinicaComponent } from '../../../detalhes-clinica/detalhes-clinica.component';
+import { ClinicasService } from '../../../services/clinicas.service';
+import { LocalService } from '../../../services/local.service';
 
 @Component({
   selector: 'app-clinicas',
-  templateUrl: './clinicas.page.html',
-  styleUrls: ['./clinicas.page.scss'],
+  templateUrl: './clinicas.component.html',
+  styleUrls: ['./clinicas.component.scss'],
 })
-export class ClinicasPage implements OnInit {
+export class ClinicasComponent implements OnInit {
 
-  constructor(private clinicasService: ClinicasService,
-              private modalCtrl: ModalController,
-              private localService: LocalService) { }
-
-  @ViewChild('pesquisaSearchbar', {static: false}) pesquisaSearchbar: IonSearchbar;
-  clinicas: Clinica[] = [];
   loaded = false;
-  tipoFiltro = new FormControl('nome');
   filtros: Clinica[] = [];
   filtrosEstado: Clinica[] = [];
-  pesquisaTexto = '';
+  @ViewChild('pesquisaSearchbar', { static: false }) pesquisaSearchbar: IonSearchbar;
+  tipoFiltro = new FormControl('nome');
+  clinicas: Clinica[] = [];
   estados: Estado[] = [];
   cidades: Cidade[] = [];
   estadoFiltro = new FormControl('selecione');
   cidadeFiltro = new FormControl('seleciona');
   compararEstados = this.compararEstadosFn;
   compararCidades = this.compararCidadesFn;
+
+  constructor(private modalCtrl: ModalController,
+              private clinicasService: ClinicasService,
+              private localService: LocalService,
+              private navController: NavController) { }
 
   ngOnInit() {
     this.getClinicas();
@@ -46,6 +46,7 @@ export class ClinicasPage implements OnInit {
       this.loaded = true;
     });
   }
+
   getEstados() {
     this.localService.getEstados().subscribe((estados) => {
       this.estados = [...estados];
@@ -56,10 +57,6 @@ export class ClinicasPage implements OnInit {
     this.localService.getCidades(estado.id).subscribe((cidades) => {
       this.cidades = [...cidades];
     });
-  }
-
-  filtroPesquisa(event) {
-    this.pesquisaSearchbar.value = '';
   }
 
   pesquisa(event) {
@@ -101,29 +98,21 @@ export class ClinicasPage implements OnInit {
     this.loaded = true;
   }
 
-  async detalhesClinica(clinica: Clinica) {
+  async selecionarProcedimento(clinica: Clinica) {
     const modal = await this.modalCtrl.create({
       component: DetalhesClinicaComponent,
       componentProps: {
-        clinica
-      },
-      cssClass: ['modal-clinicas']
+        clinica,
+        isCompra: true
+      }
     });
     modal.present();
-  }
-
-  configureForm() {
-    this.tipoFiltro.valueChanges.subscribe((value) => {
-      this.filtroPesquisa(value);
-    });
-    this.cidadeFiltro.disable();
-    this.estadoFiltro.valueChanges.subscribe((value) => {
-      this.filtrarEstado(value);
-    });
-    this.cidadeFiltro.valueChanges.subscribe((value) => {
-      if (typeof value === 'object') {
-        this.filtrarCidade(value);
-      }
+    modal.onDidDismiss().then((data) => {
+      const compra = JSON.parse(localStorage.getItem('newCompra'));
+      compra.clinica = data.data.clinica;
+      compra.procedimento = data.data.procedimento;
+      localStorage.setItem('newCompra', JSON.stringify(compra));
+      this.resumo();
     });
   }
 
@@ -160,6 +149,29 @@ export class ClinicasPage implements OnInit {
         }
       });
     }
+  }
+
+  resumo() {
+    this.navController.navigateForward('/home/compras/resumo');
+  }
+
+  configureForm() {
+    this.tipoFiltro.valueChanges.subscribe((value) => {
+      this.filtroPesquisa(value);
+    });
+    this.cidadeFiltro.disable();
+    this.estadoFiltro.valueChanges.subscribe((value) => {
+      this.filtrarEstado(value);
+    });
+    this.cidadeFiltro.valueChanges.subscribe((value) => {
+      if (typeof value === 'object') {
+        this.filtrarCidade(value);
+      }
+    });
+  }
+
+  filtroPesquisa(event) {
+    this.pesquisaSearchbar.value = '';
   }
 
   clearArray(array: any[]) {

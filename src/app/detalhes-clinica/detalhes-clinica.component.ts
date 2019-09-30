@@ -9,7 +9,8 @@ import { Clinica } from '../models/clinica';
 })
 export class DetalhesClinicaComponent implements OnInit {
 
-  @Input() clinica: Clinica;
+  @Input() clinica: any;
+  @Input() isCompra: boolean;
 
   constructor(private modalCtrl: ModalController) { }
 
@@ -17,6 +18,15 @@ export class DetalhesClinicaComponent implements OnInit {
 
   fechar() {
     this.modalCtrl.dismiss();
+  }
+
+  selecionarProcedimento(procedimento: any) {
+    if (this.isCompra) {
+      this.modalCtrl.dismiss({
+        procedimento,
+        clinica: this.clinica.id
+      });
+    }
   }
 
 }

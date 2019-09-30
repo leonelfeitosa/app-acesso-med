@@ -1,4 +1,4 @@
-import { MenuController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
-  constructor(private menuCtrl: MenuController) {}
+  constructor(private menuCtrl: MenuController,
+              private navCtrl: NavController) {}
 
   ngOnInit() {
     this.menuCtrl.enable(true);
+  }
+
+  iniciarCompra() {
+    this.navCtrl.navigateForward('/home/compras/clientes');
   }
 }

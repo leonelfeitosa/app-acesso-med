@@ -1,0 +1,14 @@
+ul {
+    list-style-type: none;
+    padding-inline-start: 4%;
+    margin-top: 2%;
+}
+
+.title {
+    font-weight: bold;
+    padding-top: 2%;
+}
+
+ul > ul > li {
+    padding-top: 4%;
+}

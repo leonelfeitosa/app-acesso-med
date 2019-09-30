@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Resumo</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div *ngIf="loaded">
+      <ul>
+          <li class="title">Cliente:</li>
+          <ul>
+            <li>Nome:{{resumoCompra.cliente.nome}}</li>
+            <li>Data de Nascimento:{{ resumoCompra.cliente.data_nascimento }}</li>
+            <li>Endereco:{{getEndereco(resumoCompra.cliente)}}</li>
+            <li>CPF:{{ resumoCompra.cliente.cpf }}</li>
+            <div *ngIf="resumoCompra.cliente.responsavel">
+            <li>Nome do Responsavel:{{ resumoCompra.cliente.responsavel.nome }}</li>
+            <li>CPF do Responsavel: {{ resumoCompra.cliente.responsavel.cpf }}</li>
+          </div>
+          </ul>
+          <li class="title">Clinica:</li>
+          <ul>
+            <li>Nome: {{ resumoCompra.clinica.name }}</li>
+            <li>CPF/CNPJ: {{ resumoCompra.clinica.cnpj }}</li>
+            <li>Endereco: {{ getEndereco(resumoCompra.clinica) }}</li>
+          </ul>
+          <li class="title">Procedimento:</li>
+          <ul>
+            <li>Nome: {{ resumoCompra.procedimento.nome }}</li>
+            <li>Valor: R$ {{resumoCompra.procedimento.valor}} </li>
+          </ul>
+        </ul>
+        <ion-button color="primary" expand="block" (click)="registrarCompra()">Confirmar Compra</ion-button>
+  </div>
+  
+
+</ion-content>
+

@@ -69,7 +69,6 @@ export class CadastrarClientePage implements OnInit {
     modal.present();
     modal.onDidDismiss().then((data) => {
       this.responsavel = data.data.responsavel;
-      console.log(this.responsavel);
       this.editarResponsavel = true;
       this.clienteGroup.setErrors(null);
     });
@@ -99,13 +98,19 @@ export class CadastrarClientePage implements OnInit {
         loading.present();
         this.clientesService.cadastrarCliente(cliente).subscribe(async (data) => {
           loading.dismiss();
-          const toast = await this.toastCtrl.create({
-            message: 'Cliente Cadastrado com sucesso',
-            duration: 1000,
-            color: 'dark'
-          });
-          toast.present();
-          this.navCtrl.pop();
+          if (this.testarModal()) {
+            this.modalCtrl.dismiss({
+              cliente: data.id
+            });
+          } else {
+            const toast = await this.toastCtrl.create({
+              message: 'Cliente Cadastrado com sucesso',
+              duration: 1000,
+              color: 'dark'
+            });
+            toast.present();
+            this.navCtrl.pop();
+          }
         });
       }
     }
@@ -180,6 +185,19 @@ export class CadastrarClientePage implements OnInit {
       this.estadoSelecionado(value);
     });
     this.clienteGroup.get('cidade').disable();
+  }
+
+  async testarModal() {
+    return await this.modalCtrl.getTop();
+  }
+
+  async voltarHome() {
+    if (this.testarModal()) {
+      this.modalCtrl.dismiss();
+    } else {
+      this.navCtrl.navigateRoot('/home');
+    }
+
   }
 
 }

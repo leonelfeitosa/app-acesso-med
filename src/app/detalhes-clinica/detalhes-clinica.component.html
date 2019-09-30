@@ -13,7 +13,7 @@
   <h2 class="titulo">{{clinica.name}}</h2>
 
   <ion-list>
-    <ion-item *ngFor="let procedimento of clinica.procedimentos">
+    <ion-item *ngFor="let procedimento of clinica.procedimentos" button detail="false" (click)="selecionarProcedimento(procedimento)">
       <ion-label >{{ procedimento.nome }}</ion-label>
       <ion-label slot="end">{{ "R$" + procedimento.valor }}</ion-label>
     </ion-item>

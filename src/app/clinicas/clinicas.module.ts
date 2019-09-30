@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ClinicasPage } from './clinicas.page';
 import { DetalhesClinicaComponent } from '../detalhes-clinica/detalhes-clinica.component';
+import { DetalhesClinicasModule } from '../shared/detalhes-clinicas/detalhes-clinicas.module';
 
 const routes: Routes = [
   {
@@ -21,9 +22,10 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    DetalhesClinicasModule
   ],
-  declarations: [ClinicasPage, DetalhesClinicaComponent],
+  declarations: [ClinicasPage],
   entryComponents: [DetalhesClinicaComponent]
 })
 export class ClinicasPageModule {}

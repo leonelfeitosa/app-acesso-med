@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Clinica } from '../models/clinica';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClinicasService {
-  private clinicasUrl = 'clinicas';
+export class ComprasService {
+  private comprasUrl = 'compras';
+
   constructor(private http: HttpClient) { }
 
   private getToken() {
@@ -21,11 +21,7 @@ export class ClinicasService {
     return requestOptions;
   }
 
-  public getClinicas(): Observable<any[]> {
-    return this.http.get<any[]>(this.clinicasUrl, this.getToken());
-  }
-
-  public getClinica(id: string): Observable<Clinica> {
-    return this.http.get<Clinica>(`${this.clinicasUrl}/${id}`, this.getToken());
+  public cadastrarCompra(compra: object): Observable<object> {
+    return this.http.post<object>(this.comprasUrl, compra, this.getToken());
   }
 }

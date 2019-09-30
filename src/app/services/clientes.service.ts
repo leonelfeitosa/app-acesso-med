@@ -22,11 +22,15 @@ export class ClientesService {
     return requestOptions;
   }
 
-  public cadastrarCliente(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(this.clientesUrl, cliente, this.getToken());
+  public cadastrarCliente(cliente: Cliente): Observable<any> {
+    return this.http.post<any>(this.clientesUrl, cliente, this.getToken());
   }
 
   public getClientes(): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(this.clientesUrl, this.getToken());
+  }
+
+  public getCliente(id: string): Observable<any> {
+    return this.http.get(`${this.clientesUrl}/${id}`, this.getToken());
   }
 }
