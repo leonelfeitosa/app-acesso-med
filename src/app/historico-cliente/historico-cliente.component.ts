@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, LoadingController, AlertController } from '@ionic/angular';
 import { ComprasService } from '../services/compras.service';
 
 @Component({
@@ -13,7 +13,9 @@ export class HistoricoClienteComponent implements OnInit {
   historico = [];
 
   constructor(private comprasService: ComprasService,
-              private modalCtrl: ModalController) { }
+              private modalCtrl: ModalController,
+              private loadingCtrl: LoadingController,
+              private alertCtrl: AlertController) { }
 
   ngOnInit() {
     this.getHistorico();
@@ -24,6 +26,35 @@ export class HistoricoClienteComponent implements OnInit {
       this.historico = compras;
       console.log(compras);
     });
+  }
+
+  async alterarPagamento(idCompra) {
+    const compra = this.historico.find((compra) => {
+      return compra.id === idCompra;
+    });
+    const alteracao = {
+      pago: !compra.pago
+    };
+    const loading = await this.loadingCtrl.create();
+    loading.present();
+    this.comprasService.alterarCompra(idCompra, alteracao).subscribe(async () => {
+      loading.dismiss();
+      const alert = await this.alertCtrl.create({
+        header: 'Sucesso',
+        message: 'Compra alterada com sucesso',
+        buttons: ['Ok']
+      });
+      await alert.present();
+      this.clearArray(this.historico);
+      this.getHistorico();
+    });
+  }
+
+
+  clearArray(array: Array<object>) {
+    while (array.length > 0) {
+      array.pop();
+    }
   }
 
   fechar() {

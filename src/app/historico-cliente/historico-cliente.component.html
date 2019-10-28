@@ -18,7 +18,18 @@
       <ion-label position="stacked">{{ procedimento.procedimento.nome }}</ion-label>
       <ion-label position="stacked">{{ procedimento.dataCompra }} </ion-label>
     </div>
-      <ion-label slot="end">{{ "R$" + procedimento.procedimento.valor }}</ion-label>
+      <div slot="end" >
+        <ion-label style="display: inline;">{{ "R$" + procedimento.procedimento.valor }}</ion-label>
+        <ion-button color="danger" *ngIf="!procedimento.pago; else pagoBlock" (click)="alterarPagamento(procedimento.id)">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+        <ng-template #pagoBlock>
+        <ion-button color="success"  (click)="alterarPagamento(procedimento.id)">
+          <ion-icon name="checkmark"></ion-icon>
+        </ion-button>
+      </ng-template>
+      </div>
+      
     </ion-item>
   </ion-list>
 </ion-content>

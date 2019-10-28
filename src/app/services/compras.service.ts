@@ -28,4 +28,8 @@ export class ComprasService {
   public getHistorico(clienteId: object): Observable<object[]> {
     return this.http.get<object[]>(`${this.comprasUrl}/?cliente=${clienteId}`, this.getToken());
   }
+
+  public alterarCompra(idCompra: string, alteracao: object): Observable<object> {
+    return this.http.put<object>(`${this.comprasUrl}/${idCompra}`, alteracao, this.getToken());
+  }
 }
