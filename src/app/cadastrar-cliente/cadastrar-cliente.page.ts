@@ -98,7 +98,7 @@ export class CadastrarClientePage implements OnInit {
         loading.present();
         this.clientesService.cadastrarCliente(cliente).subscribe(async (data) => {
           loading.dismiss();
-          if (this.testarModal()) {
+          if (await this.testarModal()) {
             this.modalCtrl.dismiss({
               cliente: data.id
             });
@@ -109,7 +109,7 @@ export class CadastrarClientePage implements OnInit {
               color: 'dark'
             });
             toast.present();
-            this.navCtrl.pop();
+            this.voltarHome();
           }
         });
       }
@@ -189,10 +189,12 @@ export class CadastrarClientePage implements OnInit {
 
   async testarModal() {
     return await this.modalCtrl.getTop();
+    
   }
 
   async voltarHome() {
-    if (this.testarModal()) {
+    let resultado = await this.testarModal();
+    if (resultado) {
       this.modalCtrl.dismiss();
     } else {
       this.navCtrl.navigateRoot('/home');
