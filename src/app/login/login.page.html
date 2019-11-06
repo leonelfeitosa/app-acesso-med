@@ -1,14 +1,11 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content fullscreen>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Login</ion-card-title>
-    </ion-card-header>
+
+  <div class="logo">
+    <img src="/assets/logo.jpeg" alt="center" > 
+  </div>
+ 
+    
     <ion-card-content>
       <form (ngSubmit)="login()" [formGroup]="authGroup">
         <ion-item>
@@ -26,5 +23,5 @@
         </div>
       </form>
     </ion-card-content>
-  </ion-card>
+
 </ion-content>
