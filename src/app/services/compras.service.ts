@@ -29,6 +29,10 @@ export class ComprasService {
     return this.http.get<object[]>(`${this.comprasUrl}/?cliente=${clienteId}`, this.getToken());
   }
 
+  public getCompra(compraId: string): Observable<any> {
+    return this.http.get<any>(`${this.comprasUrl}/${compraId}`, this.getToken());
+  }
+
   public alterarCompra(idCompra: string, alteracao: object): Observable<object> {
     return this.http.put<object>(`${this.comprasUrl}/${idCompra}`, alteracao, this.getToken());
   }

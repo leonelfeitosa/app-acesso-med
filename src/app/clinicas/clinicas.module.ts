@@ -9,6 +9,7 @@ import { ClinicasPage } from './clinicas.page';
 import { DetalhesClinicaComponent } from '../detalhes-clinica/detalhes-clinica.component';
 import { DetalhesClinicasModule } from '../shared/detalhes-clinicas/detalhes-clinicas.module';
 
+
 const routes: Routes = [
   {
     path: '',

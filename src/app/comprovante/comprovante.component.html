@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="fechar()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Comprovante</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="comprovante">
+    <ul class="lista-comprovante">
+      <li><h4>Compra:</h4></li>
+      <li>
+        <ul class="lista-comprovante">
+          <li><h6>Procedimento: {{compra.procedimento.nome}}</h6></li>
+          <li><h6>Valor: R$ {{compra.procedimento.valor}}</h6></li>
+          <li><h6>Data da compra: {{compra.dataCompra}}</h6></li>
+        </ul>
+      </li>
+      <li><h4>Cliente: </h4></li>
+      <li>
+        <ul class="lista-comprovante">
+          <li> <h6>Nome: {{compra.cliente.nome}}</h6></li>
+          <li><h6>Data de Nascimento: {{compra.cliente.data_nascimento}}</h6></li>
+          <li><h6>CPF: {{compra.cliente.cpf}}</h6></li>
+      </ul>
+    </li>
+    <li><h4>Clinica: </h4></li>
+    <li>
+      <ul class="lista-comprovante">
+        <li><h6>Nome: {{compra.clinica.name}}</h6></li>
+        <li><h6>CNPJ: {{compra.clinica.cnpj}}</h6></li>
+      </ul>
+    </li>
+    </ul>
+    
+  </div>
+  <ion-button expand="block" (click)="compartilhar()">
+    Compartilhar
+  </ion-button>
+</ion-content>

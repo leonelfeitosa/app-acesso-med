@@ -20,16 +20,16 @@
     </div>
       <div slot="end" >
         <ion-label style="display: inline;">{{ "R$" + procedimento.procedimento.valor }}</ion-label>
-        <ion-button color="danger" *ngIf="!procedimento.pago; else pagoBlock" (click)="alterarPagamento(procedimento.id)">
+        <ion-button color="danger" *ngIf="!procedimento.pago; else pagoBlock" (click)="pagamento(procedimento.id)">
           <ion-icon name="close"></ion-icon>
         </ion-button>
         <ng-template #pagoBlock>
-        <ion-button color="success"  (click)="alterarPagamento(procedimento.id)">
+        <ion-button color="success"  (click)="pagamento(procedimento.id)">
           <ion-icon name="checkmark"></ion-icon>
         </ion-button>
       </ng-template>
       </div>
-      
+    
     </ion-item>
   </ion-list>
 </ion-content>

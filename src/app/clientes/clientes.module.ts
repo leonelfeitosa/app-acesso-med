@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ClientesPage } from './clientes.page';
 import { HistoricoClienteComponent } from '../historico-cliente/historico-cliente.component';
+import { ComprovanteComponent } from '../comprovante/comprovante.component';
 
 const routes: Routes = [
   {
@@ -23,7 +24,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ClientesPage, HistoricoClienteComponent],
-  entryComponents: [HistoricoClienteComponent]
+  declarations: [ClientesPage, HistoricoClienteComponent, ComprovanteComponent],
+  entryComponents: [HistoricoClienteComponent, ComprovanteComponent]
 })
 export class ClientesPageModule {}
