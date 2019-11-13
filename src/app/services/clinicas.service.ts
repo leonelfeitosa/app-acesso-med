@@ -22,7 +22,7 @@ export class ClinicasService {
   }
 
   public getClinicas(): Observable<any[]> {
-    return this.http.get<any[]>(this.clinicasUrl, this.getToken());
+    return this.http.get<any[]>(`${this.clinicasUrl}/?situacao=ativo`, this.getToken());
   }
 
   public getClinica(id: string): Observable<Clinica> {

@@ -114,7 +114,6 @@ export class HistoricoClienteComponent implements OnInit {
   }
 
   async comprovante(compra) {
-    console.log(compra);
     const modalComprovante = await this.modalCtrl.create(
       {
         component: ComprovanteComponent,

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, ToastController, NavController } from '@ionic/angular';
+import { LoadingController, ToastController, NavController, AlertController, ModalController } from '@ionic/angular';
 import { ClientesService } from '../../../services/clientes.service';
 import { ClinicasService } from '../../../services/clinicas.service';
 import { ComprasService } from '../../../services/compras.service';
+import { ComprovanteComponent } from '../../../comprovante/comprovante.component';
 
 
 
@@ -23,6 +24,8 @@ export class ResumoComponent implements OnInit {
               private comprasService: ComprasService,
               private loadingCtrl: LoadingController,
               private toastCtrl: ToastController,
+              private alertCtrl: AlertController,
+              private modalCtrl: ModalController,
               private navCtrl: NavController) { }
 
   ngOnInit() {
@@ -36,21 +39,41 @@ export class ResumoComponent implements OnInit {
     });
   }
 
-  registrarCompra() {
+  async registrarCompra() {
     this.loadingCtrl.create().then((loading) => {
       loading.present();
     });
-    this.comprasService.cadastrarCompra(this.compra).subscribe(() => {
-      this.loadingCtrl.dismiss();
-      this.toastCtrl.create({
-        message: 'Compra realizada com sucesso',
-        duration: 1000,
-        color: 'dark'
-      }).then((toast) => {
-        toast.present();
-        this.navCtrl.navigateRoot('/home');
-      });
+    const compra = await this.comprasService.cadastrarCompra(this.compra).toPromise();
+    this.loadingCtrl.dismiss();
+    // const toast = await this.toastCtrl.create({
+    //   message: 'Compra realizada com sucesso',
+    //   duration: 1000,
+    //   color: 'dark'
+    // });
+    // toast.present();
+    const alert = await this.alertCtrl.create({
+      header: 'Compra realizada',
+      message: 'Compra realizada. Deseja visualizar o comprovante?',
+      buttons: [{
+        text: 'Sim',
+        role: 'confirm',
+        cssClass: 'primary',
+        handler: async (e) => {
+          const modal = await this.modalCtrl.create({
+            component: ComprovanteComponent,
+            componentProps: {
+              compra
+            }
+          });
+          modal.present();
+        }
+      }, {
+        text: 'Não',
+        role: 'cancel',
+        cssClass: 'secondary'
+      }]
     });
+    alert.present();
   }
 
   getCompraFromLocalStorage() {

@@ -13,6 +13,7 @@ import { ClinicasComponent } from './components/clinicas/clinicas.component';
 import { DetalhesClinicaComponent } from '../detalhes-clinica/detalhes-clinica.component';
 import { ResumoComponent } from './components/resumo/resumo.component';
 import { DetalhesClinicasModule } from '../shared/detalhes-clinicas/detalhes-clinicas.module';
+import { ComprovanteComponent } from '../comprovante/comprovante.component';
 
 
 const routes: Routes = [
@@ -44,7 +45,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     DetalhesClinicasModule
   ],
-  declarations: [ComprasPage, ClientesComponent, ClinicasComponent, ResumoComponent],
-  entryComponents: [CadastrarClientePage, DetalhesClinicaComponent]
+  declarations: [ComprasPage, ClientesComponent, ClinicasComponent, ResumoComponent, ComprovanteComponent],
+  entryComponents: [CadastrarClientePage, DetalhesClinicaComponent, ComprovanteComponent]
 })
 export class ComprasPageModule {}
