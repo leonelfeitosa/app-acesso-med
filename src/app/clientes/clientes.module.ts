@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { ClientesPage } from './clientes.page';
 import { HistoricoClienteComponent } from '../historico-cliente/historico-cliente.component';
 import { ComprovanteComponent } from '../comprovante/comprovante.component';
+import { ComprovanteModule } from '../shared/comprovante/comprovante.module';
 
 const routes: Routes = [
   {
@@ -22,9 +23,10 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ComprovanteModule
   ],
-  declarations: [ClientesPage, HistoricoClienteComponent, ComprovanteComponent],
+  declarations: [ClientesPage, HistoricoClienteComponent],
   entryComponents: [HistoricoClienteComponent, ComprovanteComponent]
 })
 export class ClientesPageModule {}

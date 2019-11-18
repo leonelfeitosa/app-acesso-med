@@ -59,13 +59,19 @@ export class ResumoComponent implements OnInit {
         role: 'confirm',
         cssClass: 'primary',
         handler: async (e) => {
-          const modal = await this.modalCtrl.create({
-            component: ComprovanteComponent,
-            componentProps: {
-              compra
-            }
-          });
-          modal.present();
+          try {
+            await this.comprasService.alterarCompra(compra.id, {pago: true}).toPromise();
+            const modal = await this.modalCtrl.create({
+              component: ComprovanteComponent,
+              componentProps: {
+                compra
+              }
+            });
+            modal.present();
+          }catch (err) {
+            console.log(err);
+          }
+          
         }
       }, {
         text: 'Não',

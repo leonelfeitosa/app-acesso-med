@@ -14,6 +14,7 @@ import { DetalhesClinicaComponent } from '../detalhes-clinica/detalhes-clinica.c
 import { ResumoComponent } from './components/resumo/resumo.component';
 import { DetalhesClinicasModule } from '../shared/detalhes-clinicas/detalhes-clinicas.module';
 import { ComprovanteComponent } from '../comprovante/comprovante.component';
+import { ComprovanteModule } from '../shared/comprovante/comprovante.module';
 
 
 const routes: Routes = [
@@ -43,9 +44,10 @@ const routes: Routes = [
     IonicModule,
     CadastrarClientePageModule,
     RouterModule.forChild(routes),
-    DetalhesClinicasModule
+    DetalhesClinicasModule,
+    ComprovanteModule
   ],
-  declarations: [ComprasPage, ClientesComponent, ClinicasComponent, ResumoComponent, ComprovanteComponent],
+  declarations: [ComprasPage, ClientesComponent, ClinicasComponent, ResumoComponent],
   entryComponents: [CadastrarClientePage, DetalhesClinicaComponent, ComprovanteComponent]
 })
 export class ComprasPageModule {}

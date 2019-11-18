@@ -21,8 +21,8 @@ export class ComprasService {
     return requestOptions;
   }
 
-  public cadastrarCompra(compra: object): Observable<object> {
-    return this.http.post<object>(this.comprasUrl, compra, this.getToken());
+  public cadastrarCompra(compra: object): Observable<any> {
+    return this.http.post<any>(this.comprasUrl, compra, this.getToken());
   }
 
   public getHistorico(clienteId: object): Observable<object[]> {

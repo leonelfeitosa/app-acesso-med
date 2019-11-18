@@ -32,7 +32,6 @@ export class HistoricoClienteComponent implements OnInit {
 
   async pagamento(idCompra) {
     const compra = await this.comprasService.getCompra(idCompra).toPromise();
-    console.log(compra);
     if (!compra.pago) {
       const pergunta = await this.alertCtrl.create(
         {
