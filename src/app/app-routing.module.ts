@@ -30,6 +30,7 @@ const routes: Routes = [
   canActivate: [AuthRouteGuardService] },
   { path: 'clinicas', loadChildren: './clinicas/clinicas.module#ClinicasPageModule', canActivate: [AuthRouteGuardService] },
   { path: 'clientes', loadChildren: './clientes/clientes.module#ClientesPageModule' },
+  { path: 'logout', loadChildren: './logout/logout.module#LogoutPageModule' },
   
 ];
 
